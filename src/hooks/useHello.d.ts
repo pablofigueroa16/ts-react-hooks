@@ -1,1 +1,1 @@
-export declare const useHello: (name: string) => string;
+export declare const useHello: (name: string) => string
