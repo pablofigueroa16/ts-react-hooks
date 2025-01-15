@@ -1,19 +1,19 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'MyLib',
+      name: 'lvlup-react-hooks', // nombre del archivo de salida (build) que genera rollup
     },
     sourcemap: true,
-    minify: false,
+    minify: true,
     target: 'es6',
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom'], // los paquetes que esten definidos en external son responsabilidad del que consume la lib
       output: {
         globals: {
           react: 'React',
@@ -24,6 +24,9 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    dts({ outDir: 'dist', insertTypesEntry: true, exclude: '**/*.test.ts' }),
+    dts({
+      include: ['src/**/*'],
+      exclude: ['vite.config.ts', 'vitest.config.ts', '**/*.test.ts'],
+    }),
   ],
 })

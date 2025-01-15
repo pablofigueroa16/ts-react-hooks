@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/hooks/index.ts","./src/hooks/usecounter.ts","./src/hooks/usehello.ts","./src/hooks/usewindowsresize.ts","./src/types/helpers.ts","./src/types/index.ts","./vite.config.ts","./vitest.config.ts","./tsconfig.json"],"version":"5.6.3"}
