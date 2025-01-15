@@ -4,13 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "type:check": "tsc --noEmit",
-    "preview": "vite preview",
-    "prepare": "husky install",
     "test": "vitest --coverage",
     "test:watch": "vitest --watch"
   },
