@@ -29,6 +29,7 @@ export default [
   {
     rules: {
       'react/react-in-jsx-scope': 'off',
+      'prettier/prettier': ['error', { endOfline: 'auto' }],
     },
   },
 ]
