@@ -8,7 +8,7 @@ import eslintPluginPrettier from 'eslint-plugin-prettier/recommended'
 export default [
   {
     ignores: ['**/node_modules/**', '**/dist/**', '**/*.test.ts'],
-    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}', 'vite.config.ts'],
   },
   {
     languageOptions: {
