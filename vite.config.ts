@@ -7,13 +7,13 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'lvlup-react-hooks', // nombre del archivo de salida (build) que genera rollup
+      name: 'lvlup-react-hooks',
     },
     sourcemap: true,
     minify: true,
     target: 'es6',
     rollupOptions: {
-      external: ['react', 'react-dom'], // los paquetes que esten definidos en external son responsabilidad del que consume la lib
+      external: ['react', 'react-dom'],
       output: {
         globals: {
           react: 'React',
