@@ -11,6 +11,7 @@ describe('useEvent', () => {
     })
     expect(mockCallback).toHaveBeenCalledOnce()
   })
+
   it('should memory the callback', () => {
     const mockCallback = vi.fn()
     const { result, rerender } = renderHook(() =>
@@ -20,5 +21,43 @@ describe('useEvent', () => {
     rerender()
     const newCallback = result.current
     expect(callback).toStrictEqual(newCallback)
+  })
+
+  it('should pass arguments to the callback', () => {
+    const mockCallback = vi.fn()
+    const { result } = renderHook(() => useEvent(mockCallback))
+    act(() => {
+      result.current('arg1', 'arg2')
+    })
+    expect(mockCallback).toHaveBeenCalledWith('arg1', 'arg2')
+  })
+
+  it('should handle updated callback references', () => {
+    const initialCallback = vi.fn()
+    const updatedCallback = vi.fn()
+    const { result, rerender } = renderHook(
+      ({ callback }) => useEvent(callback),
+      { initialProps: { callback: initialCallback } },
+    )
+    act(() => {
+      result.current()
+    })
+    expect(initialCallback).toHaveBeenCalledOnce()
+    expect(updatedCallback).not.toHaveBeenCalled()
+
+    rerender({ callback: updatedCallback })
+    act(() => {
+      result.current()
+    })
+    expect(updatedCallback).toHaveBeenCalledOnce()
+  })
+
+  it('should return a stable reference across renders', () => {
+    const mockCallback = vi.fn()
+    const { result, rerender } = renderHook(() => useEvent(mockCallback))
+    const firstCallback = result.current
+    rerender()
+    const secondCallback = result.current
+    expect(firstCallback).toBe(secondCallback)
   })
 })
