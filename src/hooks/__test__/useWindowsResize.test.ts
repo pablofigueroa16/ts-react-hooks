@@ -1,6 +1,6 @@
 import { fireEvent, renderHook } from '@testing-library/react'
 import { useWindowsResize } from '../useWindowsResize'
-import { expect, it, describe, beforeEach } from 'vitest'
+import { expect, it, describe, beforeEach, vi } from 'vitest'
 
 describe('useWindowsResize', () => {
   beforeEach(() => {
@@ -17,5 +17,17 @@ describe('useWindowsResize', () => {
     global.innerWidth = 502
     fireEvent(window, new Event('resize'))
     expect(result.current).toStrictEqual({ width: 502, height: 900 })
+  })
+  it('should clean up event listener', () => {
+    const { unmount } = renderHook(() => useWindowsResize())
+    const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
+    const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
+    expect(addEventListenerSpy).toBeDefined()
+    unmount()
+    expect(removeEventListenerSpy).toHaveBeenCalled()
+    expect(removeEventListenerSpy).toHaveBeenCalledWith(
+      'resize',
+      expect.any(Function),
+    )
   })
 })
