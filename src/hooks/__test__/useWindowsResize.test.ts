@@ -30,4 +30,19 @@ describe('useWindowsResize', () => {
       expect.any(Function),
     )
   })
+
+  it('should return correct initial window dimensions', () => {
+    // Set custom window dimensions
+    const testWidth = 800
+    const testHeight = 600
+    global.innerWidth = testWidth
+    global.innerHeight = testHeight
+
+    const { result } = renderHook(() => useWindowsResize())
+
+    expect(result.current).toEqual({
+      width: testWidth,
+      height: testHeight,
+    })
+  })
 })
